@@ -11,7 +11,7 @@
 
 <body>
     <div class="app">
-        <div class="screen join-screen active">
+        <div class="screen join-screen ">
             <div class="form">
                 <h2>Join Chatroom</h2>
                 <div class="form-input">
@@ -23,14 +23,14 @@
                 </div>
             </div>
         </div>
-        <div class="screen chat-screen">
+        <div class="screen chat-screen active">
             <div class="header">
                 <div class="logo">ChatRoom</div>
                 <button id="exit-chat">Exit</button>
             </div>
             <div class="messages">
                 <!-- dummy message -->
-                <div class="message my-message">
+                <!-- <div class="message my-message">
                     <div>
                         <div class="name">You</div>
                         <div class="text">Hi</div>
@@ -44,8 +44,12 @@
                         <div class="name">You</div>
                         <div class="text">Hi</div>
                     </div>
-                </div>
+                </div> -->
 
+            </div>
+            <div class="typebox">
+                <input type="text" id="message-input">
+                <button id=send-message>Send</button>
             </div>
         </div>
     </div>
