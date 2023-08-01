@@ -4,7 +4,7 @@
 
     let uname;
     app.querySelector(".join-screen #join-user").addEventListener("click", () => {
-        let username = app.querySelector(".join-screen #username").value;
+        let username = app.querySelector(".join-screen #userName").value;
         if(username ===0) {
             return;
         }
@@ -14,6 +14,64 @@
         app.querySelector (".join-screen").classList.remove("active");
         app.querySelector(".chat-screen").classList.add("active");
 
-    })
+    });
+
+    app.querySelector(".chat-screen #send-message").addEventListener("click", function() {
+        let message = app.querySelector(".chat-screen #message-input").value;
+        if(message.length == 0) {
+            return;
+        }
+
+        renderMessage ("my", {
+            username: uname,
+            text:message
+        });
+
+        socket.emit("chat", {
+            username: uname,
+            text: message
+        });
+
+        app.querySelector(".chat-screen #message-input").value = "";
+
+        });
+
+        function renderMessage(type,message) {
+            let messageContainer = app.querySelector(".chat-screen .messages");
+            if(type == "my") {
+                let el = document.createElement("div");
+                el.setAttribute("class","message my-message");
+                el.innerHtml = `
+                <div>
+                    <div class = "name">You</div>
+                    <div class = "text">${message.text}</div>
+
+                </div>
+                `;
+                messageContainer.appendChild(el);
+            } else if(type == "other") {
+                let el = document.createElement("div");
+                el.setAttribute("class","message other-message");
+                el.innerHtml = `
+                <div>
+                    <div class = "name">${message.username}</div>
+                    <div class = "text">${message.text}</div>
+
+                </div>
+                `;
+                messageContainer.appendChild(el);
+
+            } else if( type == "update") {
+                let el = document.createElement("div");
+                el.setAttribute("class","update");
+                el.innerText = message;
+                messageContainer.appendChild(el);
+            }
+
+            messageContainer.scrollTop = messageContainer.scrollHeight - messageContainer.clientHeight; 
+
+        }
+
+
 
 })();
